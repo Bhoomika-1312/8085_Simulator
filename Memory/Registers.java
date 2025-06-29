@@ -1,8 +1,9 @@
+package Memory;
 import java.util.Map;
 import java.util.HashMap;
 
 class Registers{
-    Map<String, Long> registers = new HashMap<>();
+    public Map<String, Long> registers = new HashMap<>();
     public Registers() {
         registers.put("A", 0L);
         registers.put("B", 0L);

@@ -1,7 +1,9 @@
-class Memory extends Bits{
-    String Memory[] = new String[65536];
+package Memory;
 
-    void update(String line){
+class Memory extends Bits{
+    public  String Memory[] = new String[65536];
+
+    public void update(String line){
         String[] parts = line.split("[ ,]+");
         String ins = parts[0];
         switch (ins) {

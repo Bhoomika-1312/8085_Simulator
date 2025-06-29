@@ -1,9 +1,10 @@
+package main;
 import java.io.*;
 import java.util.*;
-
+import routes.*;
 public class Main{
     public static void main(String[] args){
-        instruction i = new instruction();
+        Route i = new Route();  
         try{
             File file = new File("hey.txt");
             Scanner sc = new Scanner(file);

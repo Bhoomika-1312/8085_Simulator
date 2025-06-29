@@ -1,9 +1,11 @@
+package Memory;
+
 class Flags extends Memory{
-    boolean Parity = false;
-    boolean Zero = false;
-    boolean Auxiliary_carry = false;
-    boolean Sign = false;
-    boolean Carry = false;
+    public boolean Parity = false;
+    public boolean Zero = false;
+    public boolean Auxiliary_carry = false;
+    public boolean Sign = false;
+    public boolean Carry = false;
 
     void changes_flags(){
         if(registers.get("A")==0) Zero = true;
