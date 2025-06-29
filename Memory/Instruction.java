@@ -36,7 +36,6 @@ public class Instruction extends Flags{
             registers.put("A",val);
             String Hex_value = Long.toHexString(registers.get("A"));
             System.out.println("Value of Accumulator after ADD operation is : 0" + Hex_value.toUpperCase() + "H");
-            flags();
             program_Counter+=1;
         }
         catch (Exception e) {
@@ -55,7 +54,6 @@ public class Instruction extends Flags{
             registers.put("A",val);
             String Hex_value = Long.toHexString(registers.get("A"));
             System.out.println("Value of Accumulator after ADI operation is : 0" + Hex_value.toUpperCase() + "H");
-            flags();
             program_Counter+=2;
         }
         catch (Exception e) {
@@ -72,7 +70,6 @@ public class Instruction extends Flags{
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
             System.out.println("Value of Accumulator after SUB operation is : 0" + Hex_value.toUpperCase() + "H");
-            flags();
             program_Counter+=1;
         }
         catch (Exception e) {
@@ -93,7 +90,6 @@ public class Instruction extends Flags{
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
             System.out.println("Value of Accumulator after SUI operation is : 0" + Hex_value.toUpperCase() + "H");
-            flags();
             program_Counter+=2;
         }
         catch (Exception e) {
@@ -160,7 +156,6 @@ public class Instruction extends Flags{
             val2 = val2 & 0xFF;
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
-            flags();
             program_Counter+=2;
         }
         catch (Exception e) {
@@ -192,7 +187,6 @@ public class Instruction extends Flags{
             val2 = val2 & 0xFF;
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
-            flags();
             program_Counter+=2;
         }
         catch (Exception e) {
@@ -224,7 +218,6 @@ public class Instruction extends Flags{
             val2 = val2 & 0xFF;
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
-            flags();
             program_Counter+=2;
         }
         catch (Exception e) {
@@ -232,31 +225,61 @@ public class Instruction extends Flags{
         }
     }
     public void jmp(String parts[]){
-        String val = parts[1].toUpperCase().replace("H", "");
-        int address = Integer.parseInt(val,16);
-        if(address<65536) program_Counter=address;
-        else System.out.println("Invalid address");
+        try{
+            String val = parts[1].toUpperCase().replace("H", "");
+            int address = Integer.parseInt(val,16);
+            if(address<65536) program_Counter=address;
+            else System.out.println("Invalid address");
+        }
+        catch (Exception e) {
+            System.out.println("Invalid instruction!!");
+        }
     }
     public void jz(String parts[]){
-        if(registers.get("A")==0) {
-            String val = parts[1].toUpperCase().replace("H", "");
-            int address = Integer.parseInt(val,16);
-            if(address<65536) program_Counter=address;
-            else System.out.println("Invalid address");
-        }
-        else{
-            program_Counter+=3;
-        }
+        try{
+            if(registers.get("A")==0) {
+                String val = parts[1].toUpperCase().replace("H", "");
+                int address = Integer.parseInt(val,16);
+                if(address<65536) program_Counter=address;
+                else System.out.println("Invalid address");
+            }
+            else{
+                program_Counter+=3;
+            }
+        } 
+        catch (Exception e) {
+            System.out.println("Invalid instruction!!");
+        }   
     }
     public void jnz(String parts[]){
-        if(registers.get("A")!=0) {
-            String val = parts[1].toUpperCase().replace("H", "");
-            int address = Integer.parseInt(val,16);
-            if(address<65536) program_Counter=address;
-            else System.out.println("Invalid address");
-        }
-        else{
-            program_Counter+=3;
-        }
+        try{
+            if(registers.get("A")!=0) {
+                String val = parts[1].toUpperCase().replace("H", "");
+                int address = Integer.parseInt(val,16);
+                if(address<65536) program_Counter=address;
+                else System.out.println("Invalid address");
+            }
+            else{
+                program_Counter+=3;
+            }
+        } 
+        catch (Exception e) {
+            System.out.println("Invalid instruction!!");
+        }   
+    }
+    public void sta(String parts[]){
+        Long val = registers.get("A");
+        String part = parts[1].replace("H"," ").trim();
+        int address = Integer.parseInt(part, 16);
+        Memory[address] = String.format("%02X", val & 0xFF);
+        program_Counter+=3;
+    }
+    public void lda(String parts[]){
+        String address = parts[1].toUpperCase().replace("H"," ").trim();
+        int val = Integer.parseInt(address,16);
+        String total = Memory[val];
+        Long number = Long.parseLong(total);
+        registers.put("A",number);
+        program_Counter+=3;
     }
 }

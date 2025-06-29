@@ -18,7 +18,7 @@ public class Main{
             while(i.Memory[i.program_Counter]!=null) {
                 i.seperate(i.Memory[i.program_Counter]);
             }
-            System.out.println(i.registers.get("A"));
+            System.out.println(i.Memory[8272]);
         }
         catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());

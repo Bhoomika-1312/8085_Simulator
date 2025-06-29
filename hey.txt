@@ -1,5 +1,7 @@
-MVI A,04H
-ANI 00H
-JNZ 2008H
-INR A
-INR A
+MVI A,05H
+sta 2050h
+mvi a,0ah
+mov b,a
+lda 2050h
+add b
+hlt
