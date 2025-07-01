@@ -1,0 +1,6 @@
+1.har instruction me abhi flag ke changes add on honge isme abhi
+
+
+javac Memory/*.java main/*.java routes/*.java
+
+java main.Main

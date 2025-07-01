@@ -142,22 +142,29 @@ class Memory extends Bits{
             case "STA":{
                 Memory[program_Counter] = line.toUpperCase();
                 program_Counter+=1;
-                String replaced_string = parts[1].replace("H"," ").trim();
+                String replaced_string = parts[1].toUpperCase().replace("H"," ").trim();
                 Long hexval = Long.parseLong(replaced_string,16);
                 Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
                 program_Counter += 1;
                 Memory[program_Counter] = String.format("%02X",(hexval>>8)&0xFF);
                 program_Counter += 1;
-                break;
-            }
+                break;}
             case "LDA":{
                 Memory[program_Counter] = line.toUpperCase();
                 program_Counter+=1;
-                String replaced_string = parts[1].replace("H"," ").trim();
+                String replaced_string = parts[1].toUpperCase().replace("H"," ").trim();
                 Long hexval = Long.parseLong(replaced_string,16);
                 Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
                 program_Counter += 1;
                 Memory[program_Counter] = String.format("%02X",(hexval>>8)&0xFF);
+                program_Counter += 1;
+                break;}
+            case "ACI":{
+                Memory[program_Counter] = line.toUpperCase();
+                program_Counter+=1;
+                String replaced_string = parts[1].toUpperCase().replace("H"," ").trim();
+                Long hexval = Long.parseLong(replaced_string,16);
+                Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
                 program_Counter += 1;
                 break;
             }

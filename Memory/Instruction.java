@@ -282,4 +282,25 @@ public class Instruction extends Flags{
         registers.put("A",number);
         program_Counter+=3;
     }
+    public void aci(String parts[]){
+        try{
+            String new_string = parts[1];
+            if(new_string.endsWith("H") || new_string.endsWith("h")){
+                new_string = parts[1].substring(0,parts[1].length()-1);
+            }
+            long val = Long.parseLong(new_string,16);
+            int bool = (Carry==true) ? 1 : 0;
+            aux_carry(val+bool);
+            val+=registers.get("A")+bool;
+            carry(val);
+            val = val & 0xFF;
+            registers.put("A",val);
+            String Hex_value = Long.toHexString(registers.get("A"));
+            program_Counter+=2;
+            flags();
+        }
+        catch (Exception e) {
+            System.out.println("Invalid instruction!!");
+        }
+    }
 }

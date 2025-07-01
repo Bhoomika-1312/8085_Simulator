@@ -66,6 +66,9 @@ public class Route extends Instruction{
             case "LDA":
                 lda(parts);
                 break;
+            case "ACI":
+                aci(parts);
+                break;
         }
     }
 }
