@@ -1,6 +1,9 @@
 package routes;
+import java.io.FileWriter;
+import java.io.IOException;
 import Memory.*;
 public class Route extends Instruction{
+    private FileWriter writer;
     public void seperate(String line) {
         String[] parts = line.split("[ ,]+");
         String ins = parts[0];
@@ -69,6 +72,22 @@ public class Route extends Instruction{
             case "ACI":
                 aci(parts);
                 break;
+            case "CMC":
+                cmc();
+                break;
+            case "CPI":
+                cpi(parts);
+                break;
+        }
+    }
+    public void setWriter(FileWriter writer) {
+        this.writer = writer;
+    }
+    public void log(String message) {
+        try {
+            writer.write(message);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

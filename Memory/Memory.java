@@ -11,7 +11,7 @@ class Memory extends Bits{
             case "MVI": {
                 Memory[program_Counter] = line.toUpperCase();
                 program_Counter+=1;
-                String replaced_string = parts[1].replace("H"," ").trim();
+                String replaced_string = parts[2].toUpperCase().replace("H"," ").trim();
                 Long hexval = Long.parseLong(replaced_string,16);
                 Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
                 program_Counter += 1;
@@ -29,7 +29,7 @@ class Memory extends Bits{
             case "ADI":{
                 Memory[program_Counter] = line.toUpperCase();
                 program_Counter+=1;
-                String replaced_string = parts[1].replace("H"," ").trim();
+                String replaced_string = parts[1].toUpperCase().replace("H"," ").trim();
                 Long hexval = Long.parseLong(replaced_string,16);
                 Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
                 program_Counter += 1;
@@ -162,8 +162,22 @@ class Memory extends Bits{
             case "ACI":{
                 Memory[program_Counter] = line.toUpperCase();
                 program_Counter+=1;
-                String replaced_string = parts[1].toUpperCase().replace("H"," ").trim();
+                String replaced_string = parts[1].toUpperCase().replace("H","").trim();
                 Long hexval = Long.parseLong(replaced_string,16);
+                Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
+                program_Counter += 1;
+                break;
+            }
+            case "CMC":{
+                Memory[program_Counter] = line.toUpperCase();
+                program_Counter+=1;
+                break;
+            }
+            case "CPI":{
+                Memory[program_Counter] = line.toUpperCase();
+                program_Counter+=1;
+                String replaced_string = parts[1].toUpperCase().replace("H","").trim();
+                int hexval = Integer.parseInt(replaced_string, 16);
                 Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
                 program_Counter += 1;
                 break;

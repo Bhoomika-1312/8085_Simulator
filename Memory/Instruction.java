@@ -3,7 +3,7 @@ package Memory;
 public class Instruction extends Flags{
     public void mvi(String parts[]){
         try{
-            String new_string = parts[2];
+            String new_string = parts[2].toUpperCase();
             if(new_string.endsWith("H") || new_string.endsWith("h")){
                 new_string = parts[2].substring(0,parts[2].length()-1);
             }
@@ -44,7 +44,7 @@ public class Instruction extends Flags{
     }
     public void adi(String parts[]){
         try{
-            String new_string = parts[1];
+            String new_string = parts[1].toUpperCase();
             if(new_string.endsWith("H") || new_string.endsWith("h")){
                 new_string = parts[1].substring(0,parts[1].length()-1);
             }
@@ -302,5 +302,29 @@ public class Instruction extends Flags{
         catch (Exception e) {
             System.out.println("Invalid instruction!!");
         }
+    }
+    public void cmc(){
+        Carry = !Carry;
+        program_Counter+=1;
+        flags();
+    }
+    public void cpi(String parts[]){
+        String data = parts[1].toUpperCase().replace("H","").trim();
+        int comp = Integer.parseInt(data,16);
+        long val = registers.get("A");
+        if(val<comp) {
+            Carry = true;
+            Zero = false;
+        }
+        else if(val==comp) {
+            Zero = true;
+            Carry = false;
+        }
+        else {
+            Carry = false;
+            Zero = false;
+        }
+        program_Counter+=2;
+        flags();
     }
 }

@@ -1,3 +1,2 @@
-MVI A,05H
-mov b,a
-aci ffh
+Mvi b,03h
+add b
