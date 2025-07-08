@@ -10,6 +10,7 @@ public class Instruction extends Log{
             registers.put(parts[1].toUpperCase(),val);
             program_Counter+=2;
             flags();
+            if(parts[1].toUpperCase()!="A") log("Register " + parts[1].toUpperCase() + " :" + Long.toHexString(registers.get(parts[1].toUpperCase())).toUpperCase() + "\n");
         }
         catch (Exception e) {
             log("Invalid instruction!!");
@@ -23,6 +24,8 @@ public class Instruction extends Log{
             registers.put(receiver,val);
             program_Counter+=1;
             flags();
+            if(parts[1].toUpperCase()!="A") log("Register " + parts[1].toUpperCase() + " :" + Long.toHexString(registers.get(parts[1].toUpperCase())).toUpperCase() + "\n");
+
         }
         catch (Exception e) {
             log("Invalid instruction!!");

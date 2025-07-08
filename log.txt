@@ -1,14 +1,6 @@
-Instruction: 2000  : MVI B, DH
-Accumulator: 0
-FLAGS: 
- Sign: false
- Parity: true
- Zero: true
- Auxiliary Carry: false
- Carry: false
-  
-Instruction: 2002  : MVI A, 16H
-Accumulator: 16
+Instruction: 2000  : MVI A, 1AH
+Register A :1A
+Accumulator: 1A
 FLAGS: 
  Sign: false
  Parity: false
@@ -16,8 +8,19 @@ FLAGS:
  Auxiliary Carry: false
  Carry: false
   
-Instruction: 2004  : ADD B
-Accumulator: 23
+Instruction: 2002  : MVI B, 0FH
+Register B :F
+Accumulator: 1A
+FLAGS: 
+ Sign: false
+ Parity: false
+ Zero: false
+ Auxiliary Carry: false
+ Carry: false
+  
+Instruction: 2004  : MOV C, A
+Register C :1A
+Accumulator: 1A
 FLAGS: 
  Sign: false
  Parity: false
