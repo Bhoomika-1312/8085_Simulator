@@ -2,7 +2,7 @@ package Memory;
 import java.util.Map;
 import java.util.HashMap;
 
-class Registers{
+public class Registers{
     public Map<String, Long> registers = new HashMap<>();
     public Registers() {
         registers.put("A", 0L);

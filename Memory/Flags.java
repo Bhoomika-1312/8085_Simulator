@@ -1,6 +1,6 @@
 package Memory;
 
-class Flags extends Memory{
+public class Flags extends MAIN_Memory{
     public boolean Parity = false;
     public boolean Zero = false;
     public boolean Auxiliary_carry = false;
@@ -37,16 +37,11 @@ class Flags extends Memory{
         sign();
         parity();
     }
-    void view_flags(){
-        System.out.println("ZERO FLAG :" + Zero);
-        System.out.println("PARITY FLAG :" + Parity);
-        System.out.println("SIGN FLAG :" + Sign);
-        System.out.println("AUXILIARY FLAG :" + Auxiliary_carry);
-        System.out.println("CARRY FLAG :" + Carry);
-        return ;
+    public String view_flags(){
+        String content = ("FLAGS: " + "\n"+ " Sign: " + Sign + "\n" + " Parity: "  + Parity + "\n" + " Zero: " +Zero + "\n" + " Auxiliary Carry: " + Auxiliary_carry + "\n" + " Carry: " + Carry + "\n");
+        return content;
     }
     void flags(){
         changes_flags();
-        view_flags();
     }
 }

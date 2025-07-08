@@ -1,6 +1,6 @@
 package Memory;
 
-class Memory extends Bits{
+public class MAIN_Memory extends Bits{
     public String Memory[] = new String[65536];
 
     public void update(String line){
@@ -166,13 +166,11 @@ class Memory extends Bits{
                 Long hexval = Long.parseLong(replaced_string,16);
                 Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
                 program_Counter += 1;
-                break;
-            }
+                break;}
             case "CMC":{
                 Memory[program_Counter] = line.toUpperCase();
                 program_Counter+=1;
-                break;
-            }
+                break;}
             case "CPI":{
                 Memory[program_Counter] = line.toUpperCase();
                 program_Counter+=1;
@@ -180,8 +178,7 @@ class Memory extends Bits{
                 int hexval = Integer.parseInt(replaced_string, 16);
                 Memory[program_Counter] = String.format("%02X", hexval & 0xFF);
                 program_Counter += 1;
-                break;
-            }
+                break;}
         }
     }
 }

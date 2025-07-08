@@ -1,2 +1,3 @@
-Mvi b,03h
+mvi b, dh
+mvi a, 16h
 add b

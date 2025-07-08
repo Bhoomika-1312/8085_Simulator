@@ -22,7 +22,13 @@ public class Main {
             sc.close();
             i.program_Counter = 0x2000;
             while (i.Memory[i.program_Counter] != null) {
+                i.log("Instruction: " + Integer.toHexString(i.program_Counter).toUpperCase() + "  : " + i.Memory[i.program_Counter] + "\n");
                 i.seperate(i.Memory[i.program_Counter]);
+                String flags = i.view_flags();
+                i.log("Accumulator: " + Long.toHexString(i.registers.get("A")).toUpperCase() + "\n");
+                i.log(flags+"  ");
+                i.log("\n");
+                
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e.getMessage());

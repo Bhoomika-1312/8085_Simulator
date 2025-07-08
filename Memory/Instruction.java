@@ -1,6 +1,5 @@
 package Memory;
-
-public class Instruction extends Flags{
+public class Instruction extends Log{
     public void mvi(String parts[]){
         try{
             String new_string = parts[2].toUpperCase();
@@ -10,9 +9,10 @@ public class Instruction extends Flags{
             long val = Long.parseLong(new_string,16);
             registers.put(parts[1].toUpperCase(),val);
             program_Counter+=2;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void mov(String parts[]){
@@ -22,9 +22,10 @@ public class Instruction extends Flags{
             long val = registers.get(sender);
             registers.put(receiver,val);
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void add(String parts[]){
@@ -35,11 +36,11 @@ public class Instruction extends Flags{
             val = (val+val2) & 0xFF;
             registers.put("A",val);
             String Hex_value = Long.toHexString(registers.get("A"));
-            System.out.println("Value of Accumulator after ADD operation is : 0" + Hex_value.toUpperCase() + "H");
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void adi(String parts[]){
@@ -53,11 +54,11 @@ public class Instruction extends Flags{
             val = val & 0xFF;
             registers.put("A",val);
             String Hex_value = Long.toHexString(registers.get("A"));
-            System.out.println("Value of Accumulator after ADI operation is : 0" + Hex_value.toUpperCase() + "H");
             program_Counter+=2;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void sub(String parts[]){
@@ -69,11 +70,11 @@ public class Instruction extends Flags{
             val2 = val2 & 0xFF;
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
-            System.out.println("Value of Accumulator after SUB operation is : 0" + Hex_value.toUpperCase() + "H");
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
         
     }
@@ -89,11 +90,11 @@ public class Instruction extends Flags{
             val2 = val2 & 0xFF;
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
-            System.out.println("Value of Accumulator after SUI operation is : 0" + Hex_value.toUpperCase() + "H");
             program_Counter+=2;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void inr(String parts[]){
@@ -103,9 +104,10 @@ public class Instruction extends Flags{
             val = (val+1)&0xFF;
             registers.put(incrementer,val);
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void dcr(String parts[]){
@@ -115,9 +117,10 @@ public class Instruction extends Flags{
             val = (val-1)&0xFF;
             registers.put(incrementer,val);
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void cma(){
@@ -126,9 +129,10 @@ public class Instruction extends Flags{
             val = ~val & 0xFF; 
             registers.put("A",val);
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void ana(String parts[]){
@@ -139,9 +143,10 @@ public class Instruction extends Flags{
             val = (val & val2) & 0xFF;
             registers.put("A",val);
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void ani(String parts[]){
@@ -157,9 +162,10 @@ public class Instruction extends Flags{
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
             program_Counter+=2;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void ora(String parts[]){
@@ -170,9 +176,10 @@ public class Instruction extends Flags{
             val = (val|val2) & 0xFF;
             registers.put("A",val);
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void ori(String parts[]){
@@ -188,9 +195,10 @@ public class Instruction extends Flags{
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
             program_Counter+=2;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void xra(String parts[]){
@@ -201,9 +209,10 @@ public class Instruction extends Flags{
             val = (val^val2) & 0xFF;
             registers.put("A",val);
             program_Counter+=1;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void xri(String parts[]){
@@ -219,9 +228,10 @@ public class Instruction extends Flags{
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
             program_Counter+=2;
+            flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void jmp(String parts[]){
@@ -229,10 +239,10 @@ public class Instruction extends Flags{
             String val = parts[1].toUpperCase().replace("H", "");
             int address = Integer.parseInt(val,16);
             if(address<65536) program_Counter=address;
-            else System.out.println("Invalid address");
+            else log("Invalid address");
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void jz(String parts[]){
@@ -241,14 +251,14 @@ public class Instruction extends Flags{
                 String val = parts[1].toUpperCase().replace("H", "");
                 int address = Integer.parseInt(val,16);
                 if(address<65536) program_Counter=address;
-                else System.out.println("Invalid address");
+                else log("Invalid address");
             }
             else{
                 program_Counter+=3;
             }
         } 
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }   
     }
     public void jnz(String parts[]){
@@ -257,14 +267,14 @@ public class Instruction extends Flags{
                 String val = parts[1].toUpperCase().replace("H", "");
                 int address = Integer.parseInt(val,16);
                 if(address<65536) program_Counter=address;
-                else System.out.println("Invalid address");
+                else log("Invalid address");
             }
             else{
                 program_Counter+=3;
             }
         } 
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }   
     }
     public void sta(String parts[]){
@@ -273,6 +283,7 @@ public class Instruction extends Flags{
         int address = Integer.parseInt(part, 16);
         Memory[address] = String.format("%02X", val & 0xFF);
         program_Counter+=3;
+        flags();
     }
     public void lda(String parts[]){
         String address = parts[1].toUpperCase().replace("H"," ").trim();
@@ -300,7 +311,7 @@ public class Instruction extends Flags{
             flags();
         }
         catch (Exception e) {
-            System.out.println("Invalid instruction!!");
+            log("Invalid instruction!!");
         }
     }
     public void cmc(){
