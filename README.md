@@ -24,20 +24,20 @@ P (Parity)	    :   Set for even parity
 
 
 ⚙️ Supported Instructions
-🔹 Data Transfer : MOV, MVI, LDA, STA
-🔹 Arithmetic: ADD, ADI, ADC, ACI, SUB, SUI, SBB
-🔹 Logical : ANA, ANI, ORA, ORI, XRA, XRI, CMA
-🔹 Increment / Decrement : INR, DCR
-🔹 Comparison : CMP, CPI
-🔹 Control : HLT, RST5
+1. 🔹 Data Transfer : MOV, MVI, LDA, STA
+2. 🔹 Arithmetic: ADD, ADI, ADC, ACI, SUB, SUI, SBB
+3. 🔹 Logical : ANA, ANI, ORA, ORI, XRA, XRI, CMA
+4. 🔹 Increment / Decrement : INR, DCR
+5. 🔹 Comparison : CMP, CPI
+6. 🔹 Control : HLT, RST5
 
 
 🏗️ System Design 
-Instruction Parser - Parses assembly instructions into executable operations
-Execution Engine - Simulates instruction execution cycle
-Register Module - Maintains register values
-Memory Module - Handles memory operations
-Flag Module - Computes CY, AC, Z, S, P based on operations
+1. Instruction Parser - Parses assembly instructions into executable operations
+2. Execution Engine - Simulates instruction execution cycle
+3. Register Module - Maintains register values
+4. Memory Module - Handles memory operations
+5. Flag Module - Computes CY, AC, Z, S, P based on operations
 
 
 🚀 How to Run
@@ -48,7 +48,7 @@ Flag Module - Computes CY, AC, Z, S, P based on operations
 5. Observe register and flag changes
 
 📚 Learning Outcomes
-Understanding of instruction execution cycle
-Deep knowledge of flag behavior
-Low-level system simulation
-Assembly-level programming concepts
+-Understanding of instruction execution cycle
+-Deep knowledge of flag behavior
+-Low-level system simulation
+-Assembly-level programming concepts
