@@ -25,12 +25,8 @@ public class Flags extends MAIN_Memory{
         if(count%2==0)  Parity = true;
         else Parity = false;
     }
-    void carry(Long result){
-        Carry = (result > 256) ? true : false;
-    }
-    void aux_carry(Long value){
-        Long lowerNibbleSum = (registers.get("A") & 0x0F) + (value & 0x0F);
-        Auxiliary_carry = (lowerNibbleSum > 0x0F) ? true : false;
+    void carry(long result){
+        Carry = (result > 255) ? true : false;
     }
     void changes_flags(){
         zero();

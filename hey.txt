@@ -1,3 +1,4 @@
-MVI A, 1AH
-MVI B, 0FH
-MOV C, A
+MVI A, 0FH
+ADI FFh      
+ACI 0FH
+HLT

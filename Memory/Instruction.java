@@ -36,6 +36,8 @@ public class Instruction extends Log{
             String init = parts[1].toUpperCase();
             Long val = registers.get(init);
             Long val2 = registers.get("A");
+            carry(val+val2);
+            Auxiliary_carry = (((val & 0x0F) + (val2 & 0x0F)) > 0x0F);
             val = (val+val2) & 0xFF;
             registers.put("A",val);
             String Hex_value = Long.toHexString(registers.get("A"));
@@ -53,10 +55,11 @@ public class Instruction extends Log{
                 new_string = parts[1].substring(0,parts[1].length()-1);
             }
             long val = Long.parseLong(new_string,16);
+            Auxiliary_carry = (((registers.get("A") & 0x0F) + (val & 0x0F)) > 0x0F);
             val+=registers.get("A");
+            carry(val);
             val = val & 0xFF;
             registers.put("A",val);
-            String Hex_value = Long.toHexString(registers.get("A"));
             program_Counter+=2;
             flags();
         }
@@ -69,6 +72,8 @@ public class Instruction extends Log{
             String sender = parts[1].toUpperCase();
             Long val = registers.get(sender);
             Long val2 = registers.get("A");
+            if(val2  < val) Carry = true;
+            Auxiliary_carry = (((val2 & 0x0F) - (val & 0x0F)) < 0);
             val2-=val;
             val2 = val2 & 0xFF;
             registers.put("A",val2);
@@ -89,7 +94,10 @@ public class Instruction extends Log{
             }
             long val = Long.parseLong(new_string,16);
             Long val2 = registers.get("A");
+            if(val2  < val) Carry = true;
+            Auxiliary_carry = (((val2 & 0x0F) - (val & 0x0F)) < 0);
             val2 = val2-val;
+            carry(val2);
             val2 = val2 & 0xFF;
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
@@ -104,6 +112,7 @@ public class Instruction extends Log{
         try{
             String incrementer = parts[1].toUpperCase();
             Long val = registers.get(incrementer);
+            Auxiliary_carry = ((val+1) > 0x0F);
             val = (val+1)&0xFF;
             registers.put(incrementer,val);
             program_Counter+=1;
@@ -117,6 +126,7 @@ public class Instruction extends Log{
         try{
             String incrementer = parts[1].toUpperCase();
             Long val = registers.get(incrementer);
+            Auxiliary_carry = ((val & 0x0F) == 0);
             val = (val-1)&0xFF;
             registers.put(incrementer,val);
             program_Counter+=1;
@@ -132,7 +142,6 @@ public class Instruction extends Log{
             val = ~val & 0xFF; 
             registers.put("A",val);
             program_Counter+=1;
-            flags();
         }
         catch (Exception e) {
             log("Invalid instruction!!");
@@ -146,6 +155,8 @@ public class Instruction extends Log{
             val = (val & val2) & 0xFF;
             registers.put("A",val);
             program_Counter+=1;
+            Carry = false;
+            Auxiliary_carry = true;
             flags();
         }
         catch (Exception e) {
@@ -165,6 +176,8 @@ public class Instruction extends Log{
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
             program_Counter+=2;
+            Carry = false;
+            Auxiliary_carry = true;
             flags();
         }
         catch (Exception e) {
@@ -179,6 +192,8 @@ public class Instruction extends Log{
             val = (val|val2) & 0xFF;
             registers.put("A",val);
             program_Counter+=1;
+            Auxiliary_carry = false;
+            Carry = false;
             flags();
         }
         catch (Exception e) {
@@ -198,6 +213,8 @@ public class Instruction extends Log{
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
             program_Counter+=2;
+            Auxiliary_carry = false;
+            Carry = false;
             flags();
         }
         catch (Exception e) {
@@ -209,9 +226,12 @@ public class Instruction extends Log{
             String reg = parts[1].toUpperCase();
             Long val = registers.get(reg);
             Long val2 = registers.get("A");
-            val = (val^val2) & 0xFF;
-            registers.put("A",val);
+            val = (val^val2);
+            val2 = val & 0xFF;
+            registers.put("A",val2);
             program_Counter+=1;
+            Auxiliary_carry = false;
+            carry(00);
             flags();
         }
         catch (Exception e) {
@@ -225,12 +245,15 @@ public class Instruction extends Log{
                 new_string = parts[1].substring(0,parts[1].length()-1);
             }
             long val = Long.parseLong(new_string,16);
-            Long val2 = registers.get("A");
+            long val2 = registers.get("A");
             val2 = val2 ^ val;
+            val = val2;
             val2 = val2 & 0xFF;
             registers.put("A",val2);
             String Hex_value = Long.toHexString(registers.get("A"));
             program_Counter+=2;
+            Auxiliary_carry = false;
+            Carry = false;
             flags();
         }
         catch (Exception e) {
@@ -286,7 +309,6 @@ public class Instruction extends Log{
         int address = Integer.parseInt(part, 16);
         Memory[address] = String.format("%02X", val & 0xFF);
         program_Counter+=3;
-        flags();
     }
     public void lda(String parts[]){
         String address = parts[1].toUpperCase().replace("H"," ").trim();
@@ -304,9 +326,10 @@ public class Instruction extends Log{
             }
             long val = Long.parseLong(new_string,16);
             int bool = (Carry==true) ? 1 : 0;
-            aux_carry(val+bool);
+            Auxiliary_carry = ((registers.get("A") & 0x0F) + (val & 0x0F) + (bool & 0x01)) > 0x0F;
             val+=registers.get("A")+bool;
-            carry(val);
+            long val2 = val;
+            carry(val2);
             val = val & 0xFF;
             registers.put("A",val);
             String Hex_value = Long.toHexString(registers.get("A"));
