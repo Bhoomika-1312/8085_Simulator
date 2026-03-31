@@ -1,15 +1,19 @@
-package Memory;
+package memory;
+
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Log extends Flags{
-    protected FileWriter writer;
+public class Log {
+
+    private FileWriter writer;
+
     public void setWriter(FileWriter writer) {
         this.writer = writer;
     }
-    public void log(String message) {
+
+    public void write(String message) {
         try {
-            writer.write(message);
+            writer.write(message + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }

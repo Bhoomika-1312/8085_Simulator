@@ -1,28 +1,19 @@
-Instruction: 2000  : MVI A, 0FH
-Register A :F
-Accumulator: F
-FLAGS: 
- Sign: false
- Parity: true
- Zero: false
- Auxiliary Carry: false
- Carry: false
-  
-Instruction: 2002  : ADI FFH      
-Accumulator: E
-FLAGS: 
- Sign: false
- Parity: false
- Zero: false
- Auxiliary Carry: true
- Carry: true
-  
-Instruction: 2004  : ACI 0FH
-Accumulator: 1E
-FLAGS: 
- Sign: false
- Parity: true
- Zero: false
- Auxiliary Carry: true
- Carry: false
-  
+Instruction: MVI A, 10H
+Accumulator: 10
+Program Counter: 2002
+FLAGS -> Z:false S:false P:false C:false AC:false
+
+
+Instruction: CPI 20H
+Accumulator: 10
+Program Counter: 2004
+FLAGS -> Z:false S:true P:true C:true AC:false
+
+
+Instruction: HLT
+Break instruction: HLT
+Accumulator: 10
+Program Counter: 0
+FLAGS -> Z:false S:true P:true C:true AC:false
+
+

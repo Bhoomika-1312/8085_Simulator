@@ -1,43 +1,53 @@
-package Memory;
+package memory;
 
-public class Flags extends MAIN_Memory{
-    public boolean Parity = false;
-    public boolean Zero = false;
-    public boolean Auxiliary_carry = false;
-    public boolean Sign = false;
-    public boolean Carry = false;
+public class Flags {
 
-    void zero(){
-        if(registers.get("A")==0) Zero = true;
-        else Zero = false;
+    private boolean zero;
+    private boolean sign;
+    private boolean parity;
+    private boolean carry;
+    private boolean auxiliaryCarry;  
+
+    private Registers registers;
+
+    public Flags(Registers registers) {
+        this.registers = registers;
     }
-    void sign(){
-        if(registers.get("A")<0) Sign = true;
-        else Sign = false;
+    public void update(int result) {
+        zero = (result & 0xFF) == 0;
+        sign = (result & 0x80) != 0;
+
+        int count = Integer.bitCount(result & 0xFF);
+        parity = (count % 2 == 0);
+        carry = (result > 255);
     }
-    void parity(){
-        int count = 0;
-        Long val = registers.get("A");
-        while(val!=0) {
-            if((val & 1) == 1) count++;
-            val = val>>1;
-        }
-        if(count%2==0)  Parity = true;
-        else Parity = false;
+
+    public void setCarry(boolean val) {
+        carry = val;
     }
-    void carry(long result){
-        Carry = (result > 255) ? true : false;
+    public void setZero(boolean val) {
+        zero = val;
     }
-    void changes_flags(){
-        zero();
-        sign();
-        parity();
+    public void setSign(boolean val) {
+        sign = val;
     }
-    public String view_flags(){
-        String content = ("FLAGS: " + "\n"+ " Sign: " + Sign + "\n" + " Parity: "  + Parity + "\n" + " Zero: " +Zero + "\n" + " Auxiliary Carry: " + Auxiliary_carry + "\n" + " Carry: " + Carry + "\n");
-        return content;
+    public void setAuxiliaryCarry(boolean val) {  
+        auxiliaryCarry = val;
     }
-    void flags(){
-        changes_flags();
+    public boolean isZero() {
+        return zero;
+    }
+    public boolean isCarry() {
+        return carry;
+    }
+    public void setParity(boolean val) {
+        parity = val;
+    }
+   public String view() {
+        return "FLAGS -> Z:" + zero +
+               " S:" + sign +
+               " P:" + parity +
+               " C:" + carry +
+               " AC:" + auxiliaryCarry;  
     }
 }

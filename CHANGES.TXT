@@ -1,4 +1,3 @@
-
 javac Memory/*.java main/*.java routes/*.java
 
 java main.Main
